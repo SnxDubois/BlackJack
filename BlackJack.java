@@ -14,6 +14,15 @@ class BlackJack {
 	}
 	
 	public static void main(String[] args) {
+		
+		Scanner myObj = new Scanner(System.in);	
+		String userName;
+		System.out.println("Entrez votre prénom");	
+		userName = myObj.nextLine();
+		System.out.println("Bonjour " + userName + ", la partie commence");
+		
+		
+		
 		int firstCardPlayerHand = (int)(getCard(1,10));
 		int secondCardPlayerHand = (int)(getCard(1,10));
 		int startPlayerHand = (firstCardPlayerHand + secondCardPlayerHand);
@@ -36,7 +45,7 @@ class BlackJack {
 
 	public static void pickCard(int currentPlayerScore, int currentBankScore) {
 	
-		System.out.println("Joueur1 décidez vous de prendre une carte? 1 : oui / 2 : non ");
+		System.out.println(" décidez vous de prendre une carte? 1 : oui / 2 : non ");
 
 		Scanner myObj = new Scanner(System.in);		
 		int userInput = myObj.nextInt();
@@ -51,7 +60,7 @@ class BlackJack {
 			if (newPlayerHand > 21) {
 				System.out.println("Votre main est donc supérieure à 21, vous avez perdu");
 			} else if (newPlayerHand == 21) {
-				System.out.println("Black Jack!");
+				System.out.println("Black Jack! Vous avez gagné!!!$$$$$$$");
 
 			} else {
 				pickCard(newPlayerHand , currentBankScore);
@@ -99,7 +108,7 @@ class BlackJack {
 		if (finalBankScore >= finalPlayerScore){
 			System.out.println("La banque gagne");
 		} else {
-			System.out.println("Vous avez gagné");
+			System.out.println("Bravo, vous avez gagné!!! $$$$ ");
 
 		}
 	}
