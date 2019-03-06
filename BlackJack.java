@@ -6,7 +6,7 @@ class BlackJack {
 	//Methode pour tirer une carte aléatoirement(random)//
 	public static double getCard (double min , double max){
 	
-		double card = (int)(Math.random()*((10 - 1)+1))+1;
+		double card = (int)(Math.random()*((max - min)+1))+min;
 	
 	
 		return card;
@@ -28,14 +28,13 @@ class BlackJack {
 		System.out.println("La banque a pioché sa premiére carte qui est un " + firstCardBankHand);
 		System.out.println("La banque a pioché une deuxiéme carte que vous verrez une fois que les jeux sont faits");
 
-		pickCard(startPlayerHand);
-		pickAutoCardBank(startBankHand);
-		compareScore(startPlayerHand , startBankHand);		
+		pickCard(startPlayerHand, startBankHand ); // on demande au joueur de piocher une premiére carte s'il le souhaite
+				
 		
 		
 	}
 
-	public static void pickCard(int startPlayerHand) {
+	public static void pickCard(int currentPlayerScore, int currentBankScore) {
 	
 		System.out.println("Joueur1 décidez vous de prendre une carte? 1 : oui / 2 : non ");
 
@@ -46,7 +45,7 @@ class BlackJack {
 			
 			int nextCardPlayerHand = (int)(getCard(1,10));
 			System.out.println(nextCardPlayerHand);
-			int newPlayerHand = startPlayerHand + nextCardPlayerHand;
+			int newPlayerHand = currentPlayerScore + nextCardPlayerHand;
 			System.out.println("Votre main est desormais de " + newPlayerHand);
 			//newPlayerHand = 21;
 			if (newPlayerHand > 21) {
@@ -55,23 +54,25 @@ class BlackJack {
 				System.out.println("Black Jack!");
 
 			} else {
-				pickCard(newPlayerHand);
+				pickCard(newPlayerHand , currentBankScore);
 			}
 
 		} else {
-			System.out.println("Votre main finale est de " + startPlayerHand);
+			System.out.println("Votre main finale est de " + currentPlayerScore);
+			pickAutoCardBank(currentBankScore , currentPlayerScore);
+			
 		}
 
 	}
 
 
-	public static void pickAutoCardBank(int startBankHand){
+	public static void pickAutoCardBank(int currentBankScore , int currentPlayerScore){
 
-		if (startBankHand < 11) {				
+		if (currentBankScore < 16 && currentBankScore < currentPlayerScore) {				
 			
 			int nextCardBankHand = (int)(getCard(1,10));
 			System.out.println(nextCardBankHand);
-			int newBankHand = startBankHand + nextCardBankHand;
+			int newBankHand = currentBankScore + nextCardBankHand;
 			System.out.println("La main de la banque est desormais de " + newBankHand);
 			//newPlayerHand = 21;
 			if (newBankHand > 21) {
@@ -80,11 +81,12 @@ class BlackJack {
 				System.out.println("Black Jack! pour la banque, vous avez perdu!");
 
 			} else {
-				pickAutoCardBank(newBankHand);
+				pickAutoCardBank(newBankHand , currentPlayerScore);
 			}
 
 		} else {
-			System.out.println("La main finale de la banque est de " + startBankHand);
+			System.out.println("La main finale de la banque est de " + currentBankScore);
+			compareScore(currentPlayerScore , currentBankScore);
 		}
 
 		
@@ -92,16 +94,14 @@ class BlackJack {
 
 	}
 
-	public static void compareScore(int startPlayerHand , int startBankHand) {
+	public static void compareScore(int finalPlayerScore, int finalBankScore) {
 
-		if (startBankHand >= startPlayerHand){
+		if (finalBankScore >= finalPlayerScore){
 			System.out.println("La banque gagne");
 		} else {
 			System.out.println("Vous avez gagné");
 
 		}
-
-
 	}
 
 	
