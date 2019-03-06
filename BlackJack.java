@@ -40,7 +40,10 @@ class BlackJack {
 			int thirdCardPlayerHand = (int)(getCard(1,10));
 			System.out.println(thirdCardPlayerHand);
 			int instantHand = (startPlayerHand + thirdCardPlayerHand);
-			System.out.println("Votre main est de " + instantHand + " points.");
+			System.out.println("Votre main est desormais de " + instantHand + " points.");
+			if (instantHand > 21) {
+			System.out.println("Votre main est donc supérieure à 21, vous avez perdu");
+			}
 		
 
 		} else {
